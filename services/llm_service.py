@@ -1,13 +1,14 @@
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
+from pydantic import SecretStr
 
 class LLMService:
     def __init__(self, base_url="http://localhost:1234/v1", model_name="local-model"):
         self.llm = ChatOpenAI(
             base_url=base_url,
-            api_key="not-needed",
-            model_name=model_name,
+            api_key=SecretStr("not-needed"),
+            model=model_name,
             temperature=0.7
         )
         self.parser = JsonOutputParser()
